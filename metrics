@@ -144,13 +144,7 @@ def calculate_metrics(df_pred, df_test, null_val):
     return mae, mape, rmse
 
 def weight_threshold(weight_tensor, threshold):
-    """
-        Calculate the MAE, MAPE, RMSE
-        :param df_pred:
-        :param df_test:
-        :param null_val:
-        :return:
-    """
+
     n, m = weight_tensor.shape
     for i in range(n - 3):
         for j in range(m - 3):
