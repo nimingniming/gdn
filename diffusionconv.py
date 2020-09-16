@@ -12,7 +12,7 @@ class DiffusionConv(GraphConv):
     **Arguments**
     - `channels`: number of output channels;
     - `num_diffusion_steps`: How many diffusion steps to consider. \(K\) in paper.
-    - `activation`: activation function \(\sigma\); (\(\tanh\) by default)
+    - `activation`: activation function
     - `kernel_initializer`: initializer for the weights;
     - `kernel_regularizer`: regularization applied to the weights;
     - `kernel_constraint`: constraint applied to the weights;
@@ -25,7 +25,7 @@ class DiffusionConv(GraphConv):
         kernel_initializer='glorot_uniform',
         kernel_regularizer=None,
         kernel_constraint=None,
-        activation='tanh',
+        activation='relu',
         ** kwargs
     ):
         super().__init__(channels,
@@ -35,7 +35,7 @@ class DiffusionConv(GraphConv):
                          kernel_constraint=kernel_constraint,
                          **kwargs)
 
-        # number of features to generate (Q in paper)
+        # number of features to generate (Q)
         assert channels > 0
         self.Q = channels
 
@@ -86,11 +86,6 @@ class DiffusionConv(GraphConv):
 
         # Get graph signal X and adjacency tensor A
         X, A = inputs
-
-        # 'single', 'batch' and 'mixed' mode are supported by
-        # default, since we access the dimensions from the end
-        # and everything else is broadcasted accordingly
-        # if its missing.
 
         H = self.apply_filters(X, A)
         H = self.activation(H)
