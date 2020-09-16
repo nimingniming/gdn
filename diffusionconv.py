@@ -8,6 +8,7 @@ class DiffusionConv(GraphConv):
     **Output**
     - Node features with the same shape as the input, but with the last
     dimension changed to `channels`.
+    """
 
     def __init__(
         self,
